@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class TopdownCameraBehaviour : MonoBehaviour
 {
-    public Vector3 boundingBoxParam1;
-    public Vector3 boundingBoxParam2;
-    public Vector3 defaultCameraOrigin;
+    public Transform cameraOrigin;
     public float cameraSensitivity = 1.0f;
+    public float scrollSensitivity = 1.0f;
     private Vector3 _lastMousePosition;
     private bool _isDragging = false;
     private Camera _camera;
+    private float cameraY;
 
     public void Start()
     {
@@ -19,6 +19,7 @@ public class TopdownCameraBehaviour : MonoBehaviour
     public void Update()
     {
         HandleCameraDrag();
+        HandleZoom();
     }
     private void HandleCameraDrag()
     {
@@ -34,15 +35,30 @@ public class TopdownCameraBehaviour : MonoBehaviour
 
         if (_isDragging)
         {
+            Vector3 cameraPosition = this.transform.position;
             Vector3 mouseDelta = Input.mousePosition - _lastMousePosition;
-            Vector3 move = new Vector3(-mouseDelta.y, 0, mouseDelta.x) * cameraSensitivity; // Adjust sensitivity as needed
-
-            transform.position += move;
+            Vector3 move = new Vector3(-mouseDelta.x, 0 , -mouseDelta.y) * DynamicCameraSensitivity();
+            
+            cameraPosition += move;
+            cameraPosition.x = Mathf.Clamp(cameraPosition.x, -100,100);
+            cameraPosition.z = Mathf.Clamp(cameraPosition.z, -100,100);
+            this.transform.position = cameraPosition;
             _lastMousePosition = Input.mousePosition;
         }
     }
-    public void MoveCamera()
+    private float DynamicCameraSensitivity()
     {
-
+        float dynamicCameraSensitivity = 0.01f + (cameraSensitivity * (cameraY / 100f));
+        Debug.Log(dynamicCameraSensitivity);
+        return dynamicCameraSensitivity;
     }
+    private void HandleZoom()
+    {
+        Vector3 cameraPosition = this.transform.position;
+        cameraPosition.y += -Input.mouseScrollDelta.y * scrollSensitivity;
+        cameraPosition.y = Mathf.Clamp(cameraPosition.y, 10f, 100f);
+        cameraY = cameraPosition.y;
+        this.transform.position = cameraPosition;
+    }
+
 }
