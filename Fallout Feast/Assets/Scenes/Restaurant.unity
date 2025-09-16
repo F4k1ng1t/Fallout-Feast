@@ -498,8 +498,13 @@ GameObject:
   - component: {fileID: 586241247}
   - component: {fileID: 586241246}
   m_Layer: 0
+<<<<<<< Updated upstream
   m_Name: Camera
   m_TagString: MainCamera
+=======
+  m_Name: Top Down Camera
+  m_TagString: Untagged
+>>>>>>> Stashed changes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -517,8 +522,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOrigin: {fileID: 0}
+<<<<<<< Updated upstream
   cameraSensitivity: 0.3
   scrollSensitivity: 1
+=======
+  cameraSensitivity: 0.1
+  scrollSensitivity: 5
+>>>>>>> Stashed changes
 --- !u!114 &586241247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,13 +640,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 586241245}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.36237818, y: 0.6071919, z: -0.36237824, w: 0.6071919}
-  m_LocalPosition: {x: -64.9, y: 51.8, z: 0}
+  m_LocalRotation: {x: 0.5124776, y: 0, z: 0, w: 0.85870063}
+  m_LocalPosition: {x: 0, y: 60, z: -65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 61.658, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 61.658, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
