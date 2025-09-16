@@ -37,7 +37,7 @@ public class TopdownCameraBehaviour : MonoBehaviour
         {
             Vector3 cameraPosition = this.transform.position;
             Vector3 mouseDelta = Input.mousePosition - _lastMousePosition;
-            Vector3 move = new Vector3(-mouseDelta.x, 0 , -mouseDelta.y) * DynamicCameraSensitivity();
+            Vector3 move = new Vector3(-mouseDelta.y, 0 , mouseDelta.x) * DynamicCameraSensitivity();
             
             cameraPosition += move;
             cameraPosition.x = Mathf.Clamp(cameraPosition.x, -100,100);
@@ -48,9 +48,7 @@ public class TopdownCameraBehaviour : MonoBehaviour
     }
     private float DynamicCameraSensitivity()
     {
-        float dynamicCameraSensitivity = 0.01f + (cameraSensitivity * (cameraY / 100f));
-        Debug.Log(dynamicCameraSensitivity);
-        return dynamicCameraSensitivity;
+        return 0.01f + (cameraSensitivity * (cameraY / 100f));
     }
     private void HandleZoom()
     {
