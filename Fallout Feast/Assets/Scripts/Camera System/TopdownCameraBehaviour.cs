@@ -8,12 +8,11 @@ public class TopdownCameraBehaviour : MonoBehaviour
     public float scrollSensitivity = 1.0f;
     private Vector3 _lastMousePosition;
     private bool _isDragging = false;
-    private Camera _camera;
     private float cameraY;
 
     public void Start()
     {
-        _camera = this.GetComponent<Camera>();
+
     }
 
     public void Update()
@@ -37,7 +36,7 @@ public class TopdownCameraBehaviour : MonoBehaviour
         {
             Vector3 cameraPosition = this.transform.position;
             Vector3 mouseDelta = Input.mousePosition - _lastMousePosition;
-            Vector3 move = new Vector3(-mouseDelta.y, 0 , mouseDelta.x) * DynamicCameraSensitivity();
+            Vector3 move = new Vector3(-mouseDelta.x, 0 , -mouseDelta.y) * DynamicCameraSensitivity();
             
             cameraPosition += move;
             cameraPosition.x = Mathf.Clamp(cameraPosition.x, -100,100);

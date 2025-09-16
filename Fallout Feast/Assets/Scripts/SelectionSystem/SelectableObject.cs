@@ -59,8 +59,8 @@ public class SelectableObject : MonoBehaviour
             Debug.Log("Stopping pulse");
             objectRenderer.material.color = originalColor;
             StopCoroutine(pulseCoroutine);
-            pulseCoroutine = null;
-            objectRenderer.material.color = originalColor;
+            //pulseCoroutine = null;
+            //objectRenderer.material.color = originalColor;
         }
     }
 
