@@ -8,6 +8,8 @@ public class SelectableObject : MonoBehaviour
     private Coroutine pulseCoroutine;
     private static SelectableObject currentlySelected;
 
+    private bool keepPulsing = false;
+    
     void Start()
     {
         objectRenderer = GetComponent<Renderer>();
@@ -48,6 +50,7 @@ public class SelectableObject : MonoBehaviour
     {
         if (pulseCoroutine == null)
         {
+            keepPulsing = true;
             pulseCoroutine = StartCoroutine(PulseColor());
         }
     }
@@ -57,23 +60,31 @@ public class SelectableObject : MonoBehaviour
         if (pulseCoroutine != null)
         {
             Debug.Log("Stopping pulse");
-            objectRenderer.material.color = originalColor;
-            StopCoroutine(pulseCoroutine);
+            // objectRenderer.material.color = originalColor;
+            // StopCoroutine(pulseCoroutine);
+            Debug.Log("Stopped pulse");
             pulseCoroutine = null;
-            objectRenderer.material.color = originalColor;
+            
+            keepPulsing = false;
+            Debug.Log("Object renderer color "+ objectRenderer.material.color);
+            objectRenderer.material.color = Color.red; // Red isn't showing 
+            Debug.Log("Object renderer color after red"+ objectRenderer.material.color);
         }
+        
     }
 
     private System.Collections.IEnumerator PulseColor()
     {
         float halfPulse = pulseDuration / 2f;
-        while (true)
+        while (keepPulsing)
         {
             // Lerp to white
             yield return StartCoroutine(LerpColor(originalColor, Color.white, halfPulse));
             // Lerp back to original
+            Debug.Log("Color inside loop "+ objectRenderer.material.color);
             yield return StartCoroutine(LerpColor(Color.white, originalColor, halfPulse));
         }
+        // objectRenderer.material.color = Color.red;
     }
 
     private System.Collections.IEnumerator LerpColor(Color from, Color to, float duration)
