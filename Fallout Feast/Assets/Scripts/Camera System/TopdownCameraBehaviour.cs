@@ -8,6 +8,8 @@ public class TopdownCameraBehaviour : MonoBehaviour
     public float scrollSensitivity = 1.0f;
     private Vector3 _lastMousePosition;
     private bool _isDragging = false;
+
+
     private float cameraY;
 
     public void Start()
