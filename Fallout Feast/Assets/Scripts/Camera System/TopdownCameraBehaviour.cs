@@ -22,7 +22,7 @@ public class TopdownCameraBehaviour : MonoBehaviour
 
     public void Start()
     {
-
+        cameraOrigin = this.transform;
     }
 
     public void Update()
