@@ -64,7 +64,6 @@ public class BuildingManager : MonoBehaviour
                 }
                 if (Input.GetKeyDown(KeyCode.F) && SelectableObject.currentlySelected != null)
                 {
-                    SelectableObject.Deselect();
                     Destroy(SelectableObject.currentlySelected.gameObject);
                 }
                 break;
