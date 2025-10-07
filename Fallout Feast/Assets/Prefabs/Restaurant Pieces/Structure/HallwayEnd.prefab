@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7223804244171495531}
   - component: {fileID: 7581016367954471231}
   - component: {fileID: 7251015269106750791}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HallwayEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}

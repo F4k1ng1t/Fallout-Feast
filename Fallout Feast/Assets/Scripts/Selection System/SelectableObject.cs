@@ -6,7 +6,7 @@ public class SelectableObject : MonoBehaviour
     private Color originalColor;
     [SerializeField] private float pulseDuration = 0.5f; // Total pulse time
     private Coroutine pulseCoroutine;
-    private static SelectableObject currentlySelected;
+    public static SelectableObject currentlySelected;
 
     private bool keepPulsing = false;
     
