@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.UIElements;
+using UnityEngine.Animations;
 
 public enum PlacementState
 {
@@ -14,6 +15,7 @@ public enum PlacementState
 public class BuildingManager : MonoBehaviour
 {
     public List<GameObject> structurePieceList = new List<GameObject>();
+    public Transform parent;
     GameObject currentPiece;
     private PlacementState currentPlacementState = PlacementState.None;
     private int currentPlacementIndex = 0;
@@ -68,7 +70,7 @@ public class BuildingManager : MonoBehaviour
                 }
                 break;
             case PlacementState.Placing:
-                InstantiateStructurePiecePreview(structurePieceList[currentPlacementIndex]);
+                InstantiateStructurePiecePreview(structurePieceList[currentPlacementIndex], parent);
                 currentPlacementState = PlacementState.Positioning;
                 break;
             case PlacementState.Positioning:
@@ -84,9 +86,9 @@ public class BuildingManager : MonoBehaviour
                 break;
         }
     }
-    void InstantiateStructurePiecePreview(GameObject structurePiece)
+    void InstantiateStructurePiecePreview(GameObject structurePiece, Transform parent)
     {
-        currentPiece = Instantiate(structurePiece, Vector3.zero, Quaternion.identity);
+        currentPiece = Instantiate(structurePiece, Vector3.zero, Quaternion.identity, parent);
     }
     void DetermineStructurePieceLocation(GameObject structurePiece)
     {
@@ -94,6 +96,7 @@ public class BuildingManager : MonoBehaviour
         structurePiece.transform.position = MousetoGround();
         if (Input.GetMouseButtonDown(0))
         {
+            structurePiece.AddComponent<SelectableObject>();
             currentPlacementState = PlacementState.None;
         }
     }

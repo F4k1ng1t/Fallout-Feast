@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3759698825583206}
   - component: {fileID: 4921363711299219262}
   - component: {fileID: 7223804244171495531}
-  - component: {fileID: 7581016367954471231}
   - component: {fileID: 7251015269106750791}
   m_Layer: 6
   m_Name: HallwayEnd
@@ -88,19 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7581016367954471231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705558320731598752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa0bea2de78f26d47badfcca36c82d23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pulseDuration: 0.5
 --- !u!64 &7251015269106750791
 MeshCollider:
   m_ObjectHideFlags: 0
