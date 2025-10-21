@@ -1,1 +1,1 @@
-# Fallout-Feast : https://github.com/F4k1ng1t/Fallout-Feast
+# Fallout-Feast : https://f4k1ng1t.github.io/Fallout-Feast/
