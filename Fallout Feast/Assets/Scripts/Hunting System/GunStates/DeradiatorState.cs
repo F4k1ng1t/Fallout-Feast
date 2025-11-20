@@ -14,7 +14,8 @@ public class DeradiatorState : IGunState
         player.deradiationParticles.Clear();
         player.deradiationParticles.Stop();
         player.deradiator.SetActive(false);
-        
+        player.isShooting = false;
+
     }
     public void HandleInput()
     {
@@ -32,10 +33,12 @@ public class DeradiatorState : IGunState
         if (Input.GetMouseButtonDown(0))
         {
             player.deradiationParticles.Play();
+            player.isShooting = true;
         }
         if (Input.GetMouseButtonUp(0))
         {
             player.deradiationParticles.Stop();
+            player.isShooting = false;
         }
     }
 }
