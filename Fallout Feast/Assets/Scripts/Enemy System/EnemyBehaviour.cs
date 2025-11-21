@@ -4,17 +4,25 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     public bool isRadiated = true;
-    public int health = 100;
-
+    public float health = 100;
+    float maxHealth;
     float elapsed = 0f;
     int decontaminatePercent = 0;
     bool CR_Running = false;
     Renderer objectRenderer;
     PlayerController p;
+    EnemyUIManager enemyUIManager;
     private void Start()
     {
+        enemyUIManager = GetComponent<EnemyUIManager>();
+
+        maxHealth = health;
+        enemyUIManager.setHPValue(1);
+        enemyUIManager.setDecontaminationValue(0);
+
         objectRenderer = GetComponent<Renderer>();
         p = (PlayerController)FindFirstObjectByType(typeof(PlayerController));
+        
         Debug.Log(p);
     }
     private void OnCollisionEnter(Collision collision)
@@ -33,6 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void TakeDamage(int amount)
     {
         health -= amount;
+        enemyUIManager.setHPValue(health / maxHealth);
     }
     public void Die()
     {
@@ -66,6 +75,7 @@ public class EnemyBehaviour : MonoBehaviour
             objectRenderer.material.color = Color.Lerp(from, to, elapsed / duration);
             elapsed += Time.deltaTime;
             decontaminatePercent = (int)(elapsed / duration * 100);
+            enemyUIManager.setDecontaminationValue(elapsed / duration);
             Debug.Log(elapsed);
             yield return null;
         }

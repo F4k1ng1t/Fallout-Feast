@@ -10,7 +10,7 @@ public class GunState : IGunState
 
     public float force = 100f;
     public float gravityModifier = 1f;
-    public float gunCooldown = 0.2f;
+    public float gunCooldown = 1f;
 
     float lastShot = 0f;
 
@@ -38,7 +38,6 @@ public class GunState : IGunState
     }
     public void Exit()
     {
-        
         player.gun.SetActive(false);
     }
     public void HandleInput()
