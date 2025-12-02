@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Deradiator State")]
     public GameObject deradiator;
     public ParticleSystem deradiationParticles;
+    public bool isShooting;
     private IGunState currentState;
 
     

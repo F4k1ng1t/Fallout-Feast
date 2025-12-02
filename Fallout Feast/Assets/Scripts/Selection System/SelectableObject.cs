@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class SelectableObject : MonoBehaviour
 {
@@ -76,7 +77,7 @@ public class SelectableObject : MonoBehaviour
 
     }
 
-    private System.Collections.IEnumerator PulseColor()
+    private IEnumerator PulseColor()
     {
         float halfPulse = pulseDuration / 2f;
         while (keepPulsing)
@@ -91,7 +92,7 @@ public class SelectableObject : MonoBehaviour
         objectRenderer.material.color = originalColor;
     }
 
-    private System.Collections.IEnumerator LerpColor(Color from, Color to, float duration)
+    private IEnumerator LerpColor(Color from, Color to, float duration)
     {
         float elapsed = 0f;
         while (elapsed < duration)

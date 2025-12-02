@@ -14,6 +14,7 @@ public enum PlacementState
 public class BuildingManager : MonoBehaviour
 {
     public List<GameObject> structurePieceList = new List<GameObject>();
+    public Dictionary<int, KeyCode> inputPiecePairs = new Dictionary<int, KeyCode>();
     GameObject currentPiece;
     private PlacementState currentPlacementState = PlacementState.None;
     private int currentPlacementIndex = 0;
@@ -30,6 +31,12 @@ public class BuildingManager : MonoBehaviour
                 Debug.LogError("One of the structure pieces in the structurePieceList is null. Please check the SelectableObject script on " + gameObject.name);
             }
         }
+
+        //Instantiate Input
+        for (int i = 0; i < structurePieceList.Count; i++)
+        {
+            inputPiecePairs.Add(i, KeyCode.Alpha1 + i);
+        }
     }
     private void Update()
     {
@@ -37,31 +44,16 @@ public class BuildingManager : MonoBehaviour
         switch(currentPlacementState)
         {
             case PlacementState.None:
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                foreach(KeyValuePair<int, KeyCode> pair in inputPiecePairs)
                 {
-                    currentPlacementIndex = 0;
-                    currentPlacementState = PlacementState.Placing;
+                    if (Input.GetKeyDown(pair.Value))
+                    {
+                        currentPlacementIndex = pair.Key;
+                        currentPlacementState = PlacementState.Placing;
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    currentPlacementIndex = 1;
-                    currentPlacementState = PlacementState.Placing;
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    currentPlacementIndex = 2;
-                    currentPlacementState = PlacementState.Placing;
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha4))
-                {
-                    currentPlacementIndex = 3;
-                    currentPlacementState = PlacementState.Placing;
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha5))
-                {
-                    currentPlacementIndex = 4;
-                    currentPlacementState = PlacementState.Placing;
-                }
+                
+
                 if (Input.GetKeyDown(KeyCode.F) && SelectableObject.currentlySelected != null)
                 {
                     Destroy(SelectableObject.currentlySelected.gameObject);
