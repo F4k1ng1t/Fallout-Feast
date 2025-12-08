@@ -10,7 +10,7 @@ public class GunState : IGunState
 
     public float force = 100f;
     public float gravityModifier = 1f;
-    public float gunCooldown = 1f;
+    public float gunCooldown = 0.5f;
 
     float lastShot = 0f;
 

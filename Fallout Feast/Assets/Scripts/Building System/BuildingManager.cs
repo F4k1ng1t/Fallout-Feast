@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.UIElements;
+using System.Data.SqlTypes;
 
 public enum PlacementState
 {
@@ -20,6 +21,10 @@ public class BuildingManager : MonoBehaviour
     private int currentPlacementIndex = 0;
     public float floorOffset = 0.5f;
 
+    public static List<StructureData> placedStructures = new List<StructureData>();
+
+    public GameObject pieceParent;
+
     Vector3 locationBuffer = Vector3.zero;
 
     private void Start()
@@ -36,6 +41,12 @@ public class BuildingManager : MonoBehaviour
         for (int i = 0; i < structurePieceList.Count; i++)
         {
             inputPiecePairs.Add(i, KeyCode.Alpha1 + i);
+        }
+        //Save Layout
+        foreach (var data in placedStructures)
+        {
+            var prefab = structurePieceList[data.pieceIndex];
+            var obj = Instantiate(prefab, data.position, data.rotation, pieceParent.transform);
         }
     }
     private void Update()
@@ -56,7 +67,16 @@ public class BuildingManager : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.F) && SelectableObject.currentlySelected != null)
                 {
-                    Destroy(SelectableObject.currentlySelected.gameObject);
+                    var obj = SelectableObject.currentlySelected.gameObject;
+                    for (int i = placedStructures.Count - 1; i >= 0; i--)
+                    {
+                        if (obj.transform.position == placedStructures[i].position)
+                        {
+                            placedStructures.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    Destroy(obj);
                 }
                 break;
             case PlacementState.Placing:
@@ -78,16 +98,38 @@ public class BuildingManager : MonoBehaviour
     }
     void InstantiateStructurePiecePreview(GameObject structurePiece)
     {
-        currentPiece = Instantiate(structurePiece, Vector3.zero, Quaternion.identity);
+        currentPiece = Instantiate(structurePiece, Vector3.zero, Quaternion.identity, pieceParent.transform);
     }
     void DetermineStructurePieceLocation(GameObject structurePiece)
     {
-        //PlaceStructurePiece(structurePiece);
         structurePiece.transform.position = MousetoGround();
         if (Input.GetMouseButtonDown(0))
         {
-            currentPlacementState = PlacementState.None;
+            if (RestaurantData.Money >= 10)
+            {
+                var data = new StructureData
+                {
+                    pieceIndex = currentPlacementIndex,
+                    position = structurePiece.transform.position,
+                    rotation = structurePiece.transform.rotation
+                };
+                placedStructures.Add(data);
+
+                currentPlacementState = PlacementState.None;
+                RestaurantData.Money -= 10;
+                GetComponent<UIManagerTemp>().updateValues();
+            }
+            else
+            {
+                Destroy(structurePiece);
+                currentPlacementState = PlacementState.None;
+                Debug.Log("Not enough money to place structure piece.");
+                GetComponent<UIManagerTemp>().NotEnoughMoneyTrigger();
+                return;
+            }
+            
         }
+        
     }
     void RotatePiece(GameObject structurePiece, bool right)
     {
@@ -129,4 +171,11 @@ public class BuildingManager : MonoBehaviour
         Debug.Log(output);
         return output;
     }
+}
+[System.Serializable]
+public class StructureData
+{
+    public int pieceIndex;
+    public Vector3 position;
+    public Quaternion rotation;
 }

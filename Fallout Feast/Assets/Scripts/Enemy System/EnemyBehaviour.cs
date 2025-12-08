@@ -60,7 +60,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (CR_Running)
             return;
         StartCoroutine(DeradiateOverTime(objectRenderer.material.color, Color.green, 5f));
-        if (decontaminatePercent == 100)
+        if (decontaminatePercent > 99)
         {
             isRadiated = false;
         }
