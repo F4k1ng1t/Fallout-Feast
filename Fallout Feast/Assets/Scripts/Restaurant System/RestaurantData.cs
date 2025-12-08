@@ -10,10 +10,7 @@ public static class RestaurantData
         }
         set
         {
-            if (_money >= 0)
-            {
-                _money = value;
-            }
+            _money = value;
         }
     }
     private static int _food = 0;
